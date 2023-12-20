@@ -1,13 +1,15 @@
 const { Router } = require('express')
+const { check, validationResult } = require('express-validator')
 const bcrypt = require('bcryptjs')
 const jwt = require('jsonwebtoken')
 const router = Router()
 const config = require('config')
 const User = require('../models/User')
-const { check, validationResult } = require('express-validator')
 
-router.post(
-    '/register',
+
+
+// /api/auth/register
+router.post('/register',
     [
         check('email', 'Invalid email').isEmail(),
         check('password', 'Invalid password')
@@ -24,7 +26,6 @@ router.post(
                 })
             }
             const { email, password } = req.body
-
             const candidate = await User.findOne({ email })
 
             if (candidate) {
@@ -35,19 +36,16 @@ router.post(
             const user = new User({ email, password: hashedPassword })
 
             await user.save()
-
             res.status(201).json({ message: "User was created" })
 
         } catch (e) {
-            res.status(500).json({ message: "Something goes wrong" })
-            res.status(500).json({ message: e })
+            res.status(500).json({ message: "Something goes dammit wrong" })
         }
     })
 
-router.post(
-    '/login',
+router.post('/login',
     [
-        check('email', 'Please enter correct email').normalizeEmail().isEmail(),
+        check('email', 'Please enter correct email').isEmail(),
         check('password', 'Enter the password').exists()
     ],
     async (req, res) => {
@@ -65,7 +63,7 @@ router.post(
             const user = await User.findOne({ email })
 
             if (!user) {
-                return res.status(400).json({ messsage: "User not found" })
+                return res.status(400).json({ message: "User not found" })
             }
 
             const isMatch = await bcrypt.compare(password, user.password)
@@ -74,10 +72,9 @@ router.post(
 
             const token = jwt.sign(
                 { userId: user.id },
-                config.get('gwtSecret'),
+                config.get('jwtSecret'),
                 {expiresIn: '1h'}                 
             )
-
             res.json({token, userId: user.id })
 
         } catch (e) {

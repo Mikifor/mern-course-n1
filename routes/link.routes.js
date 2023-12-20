@@ -22,7 +22,7 @@ router.post('/generate', auth, async (req, res) => {
         await link.save()
 
     } catch (e) {
-        res.status(500).json({ message: "Something goes wrong" })
+        res.status(500).json({ message: "Something goes damn wrong" })
     }
 })
 
@@ -40,7 +40,7 @@ router.get('/:id', auth, async (req, res) => {
         const link = await Link.findById(req.params.id)
         res.json(link)
     } catch (e) {
-        res.status(500).json({ message: "Something goes wrong" })
+        res.status(500).json({ message: "Something goes fucking wrong" })
     }
 })
 

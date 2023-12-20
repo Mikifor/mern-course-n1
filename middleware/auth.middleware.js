@@ -10,17 +10,14 @@ module.exports = (req, res, next) => {
     try {
         const token = req.header.authorization.split(' ')[1]
         if (!token) {
-            return res.ststus(401).json({ message: 'Unexisting authorization' })
+            return res.status(401).json({ message: 'Unexisting authorization' })
         }
-
         const decoded = jwt.verify(token, config.get('jwtSecret'))
         req.user = decoded
         next()
 
-
-
     } catch (e) {
-        return res.ststus(401).json({ message: 'Unexisting authorization bad error' })
+        return res.status(401).json({ message: 'Unexisting authorization bad error' })
     }
 
 }

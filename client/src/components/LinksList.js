@@ -2,12 +2,9 @@ import React from 'react'
 import { Link } from "react-router-dom"
 
 export const LinksList = ({ links }) => {
-
     if (!links.length) {
         return <p className="center">No links</p>
     }
-
-
     return (
         <table>
             <thead>
@@ -18,7 +15,6 @@ export const LinksList = ({ links }) => {
                     <th>Open</th>
                 </tr>
             </thead>
-
             <tbody>
                 {links.map((link, index) => {
                     return (
@@ -32,7 +28,6 @@ export const LinksList = ({ links }) => {
                         </tr>
                     )
                 })}
-
             </tbody>
         </table>
     )
