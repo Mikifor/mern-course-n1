@@ -1,15 +1,14 @@
 import React, {useContext} from 'react'
-import { NavLink, useNavigate } from 'react-router-dom'
+import { NavLink } from 'react-router-dom'
 import { AuthContext } from '../context/AuthContext'
 
 export const Navbar = () => {
     const auth = useContext(AuthContext)
-    const history = useNavigate()
-
+    // const history = useNavigate() //импортируется из роутердом
     const logoutHandler = event => {
         event.preventDefault()
         auth.logout()
-        history.push('/')
+        // history.push('/') //хз зачем оно надо было, так и не понял. Только ошибку выдает
     }
 
     return (

@@ -7,7 +7,7 @@ import { LinksList } from '../components/LinksList'
 export const LinksPage = () => {
     const [links, setLinks] = useState([])
     const { loading, request } = useHttp()
-    const [token] = useContext(AuthContext)
+    const { token } = useContext(AuthContext)
 
     const fetchLinks = useCallback(async () => {
         try {
@@ -15,8 +15,7 @@ export const LinksPage = () => {
                 Authorization: `Bearer ${token}`
             })
             setLinks(fetched)
-        } catch (e) { }
-
+        } catch (e) {}
     }, [token, request])
 
     useEffect(() => {
