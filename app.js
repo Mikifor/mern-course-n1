@@ -3,6 +3,24 @@ const config = require('config')
 const mongoose = require('mongoose')
 const path = require('path')
 
+// import express from 'express'
+// import config from 'config'
+// import mongoose from 'mongoose'
+// import path from 
+
+
+// const fileURLToPath = require('url')
+// const dirname = require('path')
+
+// const filename = fileURLToPath(import.meta.url)
+// const _dirname = dirname(filename)
+
+const fileURLToPath = require('url').fileURLToPath;
+const dirname = require('path').dirname;
+
+const filename = fileURLToPath(require('url').pathToFileURL(__filename));
+const _dirname = dirname(filename);
+
 const app = express()
 app.use(express.json({extended: true}))
 app.use('/api/auth', require('./routes/auth.routes'))
